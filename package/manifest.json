@@ -1,0 +1,11 @@
+{
+  "name": "VaultHeim",
+  "author": "Svaha",
+  "version_number": "0.1.0",
+  "website_url": "https://github.com/mattbaya/VaultHeim",
+  "description": "A Vault Chest whose contents follow you: every Vault Chest you build, anywhere, holds the same things. Others can put things in; only you can take them out.",
+  "dependencies": [
+    "denikson-BepInExPack_Valheim-5.4.2351",
+    "ValheimModding-Jotunn-2.30.2"
+  ]
+}
