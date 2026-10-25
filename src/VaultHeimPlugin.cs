@@ -19,7 +19,7 @@ namespace VaultHeim
     {
         public const string Guid = "mbaya.VaultHeim";
         public const string Name = "VaultHeim";
-        public const string Version = "0.1.0";
+        public const string Version = "0.2.0";
 
         // Based on the Black metal chest's model.
         private const string BasePiece = "piece_chest_blackmetal";
@@ -28,6 +28,8 @@ namespace VaultHeim
 
         internal static ConfigEntry<bool> OthersCanDeposit;
         internal static ConfigEntry<float> SyncSeconds;
+        internal static ConfigEntry<float> PanelOffsetX;
+        internal static ConfigEntry<float> PanelOffsetY;
 
         private Harmony _harmony;
 
@@ -41,6 +43,9 @@ namespace VaultHeim
             SyncSeconds = Config.Bind("Vault", "SyncSeconds", 2f,
                 new ConfigDescription("How often the server copies a vault's contents to the player's other vault chests. (Server setting.)", new AcceptableValueRange<float>(0.5f, 30f)));
 
+            PanelOffsetX = Config.Bind("Panel", "PanelOffsetX", 0f, new ConfigDescription("Where you dragged the Restock panel (saved automatically).", new AcceptableValueRange<float>(-3000f, 3000f)));
+            PanelOffsetY = Config.Bind("Panel", "PanelOffsetY", 0f, new ConfigDescription("Where you dragged the Restock panel (saved automatically).", new AcceptableValueRange<float>(-3000f, 3000f)));
+
             PrefabManager.OnVanillaPrefabsAvailable += AddChest;
 
             _harmony = new Harmony(Guid);
@@ -48,7 +53,11 @@ namespace VaultHeim
             Log.LogInfo($"{Name} {Version} loaded");
         }
 
-        private void Update() => VaultServer.Tick();
+        private void Update()
+        {
+            VaultServer.Tick();
+            VaultPanel.Update();
+        }
 
         private void OnDestroy() => _harmony?.UnpatchSelf();
 

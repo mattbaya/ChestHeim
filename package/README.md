@@ -26,6 +26,10 @@ Put your tools in the Vault Chest at your main base, walk to your mining outpost
 
 A Vault Chest looks like a black-metal chest with a purple tint, and gives off a faint purple glow, so you can tell it apart.
 
+## Restock
+
+Open your vault chest and a **Restock** panel appears beside it. Add the items you like to carry and how many (search by name, use **+** and **-**, hold Shift for bigger steps), or click **Remember what I carry** to copy what's in your inventory now. Click **Restock** and the vault tops your inventory up to those amounts, taking only what you're short of. Anything the vault doesn't have is reported. The list belongs to your character, so every vault chest shows the same one. The panel can be dragged (double-click it to reset) and has an **X** to close the chest. Only the chest's builder sees it.
+
 ## How it works
 
 All of *your* Vault Chests are one vault. Whenever you change what's in one (put something in or take something out), the server copies the new contents to your other Vault Chests, usually within a couple of seconds. It doesn't matter how far apart they are, or whether you're anywhere near the others.
@@ -70,6 +74,7 @@ Install **VaultHeim on the server as well as every player**. The Vault Chest is 
 | Section | Key | Default | Notes |
 | --- | --- | --- | --- |
 | Vault | OthersCanDeposit | true | Others can open your Vault Chests and put things in; only you take things out. False = only you can open them |
+| Panel | PanelOffsetX / PanelOffsetY | 0 | Where you dragged the Restock panel (saved automatically) |
 | Vault | SyncSeconds | 2 | How often the server copies a vault's contents to your other chests (a server setting) |
 
 ## Troubleshooting
