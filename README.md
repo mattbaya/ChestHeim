@@ -1,6 +1,6 @@
-# EchoChests
+# ChestHeim
 
-A [BepInEx](https://thunderstore.io/c/valheim/p/denikson/BepInExPack_Valheim/) mod for Valheim: a buildable **Echo Chest** whose contents are the same in every Echo Chest its builder has built, anywhere. Thunderstore package: `EchoChests`.
+A [BepInEx](https://thunderstore.io/c/valheim/p/denikson/BepInExPack_Valheim/) mod for Valheim: a buildable **Echo Chest** whose contents are the same in every Echo Chest its builder has built, anywhere. Thunderstore package: `ChestHeim`.
 
 Player-facing docs: [package/README.md](package/README.md).
 
@@ -10,7 +10,7 @@ Player-facing docs: [package/README.md](package/README.md).
 
 | Path | Purpose |
 | --- | --- |
-| `src/` | Mod source (`EchoChests.csproj`, targets `netstandard2.1`) |
+| `src/` | Mod source (`ChestHeim.csproj`, targets `netstandard2.1`) |
 | `tools/make_icon.py` | Draws the Thunderstore icon (standard library only) |
 | `package/` | Thunderstore files |
 | `build.sh` | Builds and zips a Thunderstore package into `dist/` |
