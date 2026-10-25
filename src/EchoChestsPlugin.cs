@@ -9,17 +9,17 @@ using Jotunn.Managers;
 using Jotunn.Utils;
 using UnityEngine;
 
-namespace VaultHeim
+namespace EchoChests
 {
     [BepInPlugin(Guid, Name, Version)]
     [BepInDependency(Jotunn.Main.ModGuid)]
-    // The Vault Chest is a new buildable: anyone who sees one (and the server, which keeps the chests in step) needs the mod.
+    // The Echo Chest is a new buildable: anyone who sees one (and the server, which keeps the chests in step) needs the mod.
     [NetworkCompatibility(CompatibilityLevel.EveryoneMustHaveMod, VersionStrictness.Minor)]
-    public class VaultHeimPlugin : BaseUnityPlugin
+    public class EchoChestsPlugin : BaseUnityPlugin
     {
-        public const string Guid = "mbaya.VaultHeim";
-        public const string Name = "VaultHeim";
-        public const string Version = "0.3.0";
+        public const string Guid = "mbaya.EchoChests";
+        public const string Name = "EchoChests";
+        public const string Version = "0.4.0";
 
         // Based on the Black metal chest's model.
         private const string BasePiece = "piece_chest_blackmetal";
@@ -37,11 +37,11 @@ namespace VaultHeim
         {
             Log = Logger;
 
-            OthersCanDeposit = Config.Bind("Vault", "OthersCanDeposit", true,
-                "Other players can open your vault chests and put things in, but only you can take things out. " +
+            OthersCanDeposit = Config.Bind("Echo", "OthersCanDeposit", true,
+                "Other players can open your echo chests and put things in, but only you can take things out. " +
                 "If false, only you can open them. (The take-out rule is enforced in each player's game.)");
-            SyncSeconds = Config.Bind("Vault", "SyncSeconds", 2f,
-                new ConfigDescription("How often the server copies a vault's contents to the player's other vault chests. (Server setting.)", new AcceptableValueRange<float>(0.5f, 30f)));
+            SyncSeconds = Config.Bind("Echo", "SyncSeconds", 2f,
+                new ConfigDescription("How often the server copies an echo chest's contents to the player's other echo chests. (Server setting.)", new AcceptableValueRange<float>(0.5f, 30f)));
 
             PanelOffsetX = Config.Bind("Panel", "PanelOffsetX", 0f, new ConfigDescription("Where you dragged the Restock panel (saved automatically).", new AcceptableValueRange<float>(-3000f, 3000f)));
             PanelOffsetY = Config.Bind("Panel", "PanelOffsetY", 0f, new ConfigDescription("Where you dragged the Restock panel (saved automatically).", new AcceptableValueRange<float>(-3000f, 3000f)));
@@ -49,7 +49,7 @@ namespace VaultHeim
             PrefabManager.OnVanillaPrefabsAvailable += AddChest;
 
             _harmony = new Harmony(Guid);
-            _harmony.PatchAll(typeof(VaultHeimPlugin).Assembly);
+            _harmony.PatchAll(typeof(EchoChestsPlugin).Assembly);
             Log.LogInfo($"{Name} {Version} loaded");
         }
 
@@ -69,8 +69,8 @@ namespace VaultHeim
 
             var piece = new CustomPiece(VaultChest.PrefabName, BasePiece, new PieceConfig
             {
-                Name = "Vault Chest",
-                Description = "A chest that holds the same things as every other Vault Chest you have built, wherever they are. " +
+                Name = "Echo Chest",
+                Description = "A chest that holds the same things as every other Echo Chest you have built, wherever they are. " +
                     "Anyone can put things in; only its builder can take them out.",
                 PieceTable = PieceTables.Hammer,
                 Category = PieceCategories.Furniture,
@@ -85,7 +85,7 @@ namespace VaultHeim
             var prefab = piece.PiecePrefab;
             if (prefab == null)
             {
-                Log.LogError("Could not create the Vault Chest.");
+                Log.LogError("Could not create the Echo Chest.");
                 return;
             }
 

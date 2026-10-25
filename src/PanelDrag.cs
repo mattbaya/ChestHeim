@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace VaultHeim
+namespace EchoChests
 {
     /// <summary>
     /// Lets a panel be dragged by any empty part of it (the frame or the background; the buttons and text boxes still work as

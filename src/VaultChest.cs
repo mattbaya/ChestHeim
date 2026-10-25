@@ -1,21 +1,21 @@
 using UnityEngine;
 
-namespace VaultHeim
+namespace EchoChests
 {
-    /// <summary>The Vault Chest's identity (its prefab name and the fields it keeps in its saved data) and its look.</summary>
+    /// <summary>The Echo Chest's identity (its prefab name and the fields it keeps in its saved data) and its look.</summary>
     internal static class VaultChest
     {
-        public const string PrefabName = "VaultHeim_Chest";
+        public const string PrefabName = "EchoChests_Chest";
         public static readonly int PrefabHash = PrefabName.GetStableHashCode();
 
         // Saved fields (on top of the chest's own "items").
-        /// <summary>1 once the server has brought this chest into step with the player's other vault chests.</summary>
+        /// <summary>1 once the server has brought this chest into step with the player's other echo chests.</summary>
         public static readonly int KeyJoined = "vh_joined".GetStableHashCode();
         /// <summary>When the contents last changed (the newest copy wins).</summary>
         public static readonly int KeyStamp = "vh_stamp".GetStableHashCode();
-        /// <summary>How many vault chests this player has (written by the server).</summary>
+        /// <summary>How many echo chests this player has (written by the server).</summary>
         public static readonly int KeyCount = "vh_count".GetStableHashCode();
-        /// <summary>How many of the player's other vault chests are open right now (written by the server).</summary>
+        /// <summary>How many of the player's other echo chests are open right now (written by the server).</summary>
         public static readonly int KeyBusy = "vh_busy".GetStableHashCode();
 
         public static bool IsVault(ZDO zdo) => zdo != null && zdo.GetPrefab() == PrefabHash;
@@ -29,7 +29,7 @@ namespace VaultHeim
             var container = prefab.GetComponent<Container>();
             if (container != null)
             {
-                container.m_name = "Vault Chest";
+                container.m_name = "Echo Chest";
                 container.m_width = 5;
                 container.m_height = 10;
                 container.m_privacy = Container.PrivacySetting.Public;   // access rules are ours (see VaultPatches)

@@ -1,7 +1,7 @@
 using HarmonyLib;
 using UnityEngine;
 
-namespace VaultHeim
+namespace EchoChests
 {
     internal static class VaultRules
     {
@@ -11,12 +11,16 @@ namespace VaultHeim
         public static bool IsBuilder(Container chest) =>
             Player.m_localPlayer != null && chest.m_nview.GetZDO().GetLong(ZDOVars.s_creator) == Player.m_localPlayer.GetPlayerID();
 
+        /// <summary>The builder, or (for a chest linked to a clan) anyone whose clan matches.</summary>
+        public static bool CanTake(Container chest) =>
+            IsBuilder(chest) || ClanChest.SameClan(ClanChest.ClanOf(chest), ClanChest.MyClan);
+
         public static void Say(string text) => Player.m_localPlayer?.Message(MessageHud.MessageType.Center, text);
 
         public static long Now() => ZNet.instance != null ? (long)(ZNet.instance.GetTimeSeconds() * 1000.0) : 0L;
     }
 
-    /// <summary>Whenever the player changes a vault chest's contents, note when, so the server knows which copy is newest.</summary>
+    /// <summary>Whenever the player changes a echo chest's contents, note when, so the server knows which copy is newest.</summary>
     [HarmonyPatch(typeof(Container), "Save")]
     internal static class SavePatch
     {
@@ -24,13 +28,13 @@ namespace VaultHeim
         {
             if (VaultRules.Quiet || !VaultChest.IsVault(__instance)) return;
             var zdo = __instance.m_nview.GetZDO();
-            // A chest that hasn't been brought into the vault yet (just built) must never overwrite the vault with an empty one.
+            // A chest that hasn't been brought into the group yet (just built) must never overwrite the vault with an empty one.
             if (zdo.GetInt(VaultChest.KeyJoined) != 1) return;
             zdo.Set(VaultChest.KeyStamp, VaultRules.Now());
         }
     }
 
-    /// <summary>Who can open a vault chest, and no two of a player's chests open at once.</summary>
+    /// <summary>Who can open a echo chest, and no two of a player's chests open at once.</summary>
     [HarmonyPatch(typeof(Container), nameof(Container.Interact))]
     internal static class OpenPatch
     {
@@ -38,7 +42,15 @@ namespace VaultHeim
         {
             if (hold || !VaultChest.IsVault(__instance)) return true;
 
-            if (!VaultHeimPlugin.OthersCanDeposit.Value && !VaultRules.IsBuilder(__instance))
+            string clan = ClanChest.ClanOf(__instance);
+            if (clan.Length > 0 && !VaultRules.CanTake(__instance))
+            {
+                VaultRules.Say("This chest belongs to a clan");
+                __result = true;
+                return false;
+            }
+
+            if (clan.Length == 0 && !EchoChestsPlugin.OthersCanDeposit.Value && !VaultRules.IsBuilder(__instance))
             {
                 VaultRules.Say("This vault is private");
                 __result = true;
@@ -57,7 +69,7 @@ namespace VaultHeim
     }
 
     /// <summary>
-    /// Taking a vault chest down must not spill the vault's contents on the ground while the player's other chests still hold
+    /// Taking a echo chest down must not spill the vault's contents on the ground while the player's other chests still hold
     /// them (that would duplicate everything). If there are others, the chest is just emptied quietly; the last one drops its
     /// contents as any chest does.
     /// </summary>
@@ -76,17 +88,17 @@ namespace VaultHeim
         }
     }
 
-    // --- Only the builder can take things out of a vault chest. Everyone else can look and put things in. ---
+    // --- Only the builder can take things out of a echo chest. Everyone else can look and put things in. ---
 
     internal static class TakeRule
     {
         public static bool OtherPlayersVault(out Container chest)
         {
             chest = InventoryGui.instance != null ? InventoryGui.instance.m_currentContainer : null;
-            return chest != null && VaultChest.IsVault(chest) && !VaultRules.IsBuilder(chest);
+            return chest != null && VaultChest.IsVault(chest) && !VaultRules.CanTake(chest);
         }
 
-        public static void Refuse() => VaultRules.Say("Only its builder can take things out of this vault");
+        public static void Refuse() => VaultRules.Say("Only its builder can take things out of this chest");
     }
 
     [HarmonyPatch(typeof(InventoryGui), "OnTakeAll")]

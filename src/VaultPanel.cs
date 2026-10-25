@@ -6,11 +6,11 @@ using Jotunn.Managers;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace VaultHeim
+namespace EchoChests
 {
     /// <summary>
-    /// A panel beside your open Vault Chest: pick how many of some items you like to carry, click Restock, and the vault tops your
-    /// inventory up to those amounts. The amounts are kept on your character, so every vault chest uses the same list.
+    /// A panel beside your open Echo Chest: pick how many of some items you like to carry, click Restock, and the vault tops your
+    /// inventory up to those amounts. The amounts are kept on your character, so every echo chest uses the same list.
     /// </summary>
     internal static class VaultPanel
     {
@@ -100,7 +100,7 @@ namespace VaultHeim
             Rebuild();
         }
 
-        /// <summary>Takes from the open vault chest whatever it takes to bring the inventory up to the amounts.</summary>
+        /// <summary>Takes from the open echo chest whatever it takes to bring the inventory up to the amounts.</summary>
         private static void Restock()
         {
             var player = Player.m_localPlayer;
@@ -141,7 +141,7 @@ namespace VaultHeim
             _chest = chest;
             _query = "";
             _status = "";
-            _offset = new Vector2(VaultHeimPlugin.PanelOffsetX.Value, VaultHeimPlugin.PanelOffsetY.Value);
+            _offset = new Vector2(EchoChestsPlugin.PanelOffsetX.Value, EchoChestsPlugin.PanelOffsetY.Value);
             Rebuild();
         }
 
@@ -211,8 +211,8 @@ namespace VaultHeim
             var drag = _panel.AddComponent<PanelDrag>();
             drag.Target = _panel.GetComponent<RectTransform>();
             drag.Moved = delta => { _offset += delta; Attach(); };
-            drag.Dropped = () => { VaultHeimPlugin.PanelOffsetX.Value = _offset.x; VaultHeimPlugin.PanelOffsetY.Value = _offset.y; };
-            drag.Reset = () => { _offset = Vector2.zero; Attach(); VaultHeimPlugin.PanelOffsetX.Value = 0f; VaultHeimPlugin.PanelOffsetY.Value = 0f; };
+            drag.Dropped = () => { EchoChestsPlugin.PanelOffsetX.Value = _offset.x; EchoChestsPlugin.PanelOffsetY.Value = _offset.y; };
+            drag.Reset = () => { _offset = Vector2.zero; Attach(); EchoChestsPlugin.PanelOffsetX.Value = 0f; EchoChestsPlugin.PanelOffsetY.Value = 0f; };
             Attach();
 
             Button("X", Width / 2 - 34f, -24f, 44f, CloseChest);
@@ -307,13 +307,13 @@ namespace VaultHeim
         }
     }
 
-    /// <summary>Shows the panel while the builder has a vault chest open.</summary>
+    /// <summary>Shows the panel while the builder has a echo chest open.</summary>
     [HarmonyPatch(typeof(InventoryGui), nameof(InventoryGui.Show))]
     internal static class PanelShowPatch
     {
         private static void Postfix(Container container)
         {
-            if (container != null && VaultChest.IsVault(container) && VaultRules.IsBuilder(container)) VaultPanel.Show(container);
+            if (container != null && VaultChest.IsVault(container) && VaultRules.CanTake(container)) VaultPanel.Show(container);
             else VaultPanel.Hide();
         }
     }

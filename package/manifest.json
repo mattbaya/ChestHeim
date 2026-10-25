@@ -1,9 +1,9 @@
 {
-  "name": "VaultHeim",
+  "name": "EchoChests",
   "author": "Svaha",
-  "version_number": "0.3.0",
-  "website_url": "https://github.com/mattbaya/VaultHeim",
-  "description": "A Vault Chest whose contents follow you: every Vault Chest you build, anywhere, holds the same things. Others can put things in; only you can take them out.",
+  "version_number": "0.4.0",
+  "website_url": "https://github.com/mattbaya/EchoChests",
+  "description": "Echo Chests: a magical chest whose contents follow you. Build one anywhere and it holds the same things as all your others. Link them with a clan and your whole clan shares one. Only you (or your clan) can take things out.",
   "dependencies": [
     "denikson-BepInExPack_Valheim-5.4.2351",
     "ValheimModding-Jotunn-2.30.2"

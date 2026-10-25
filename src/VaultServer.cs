@@ -2,16 +2,16 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace VaultHeim
+namespace EchoChests
 {
     /// <summary>
-    /// The server's half: it keeps every one of a player's vault chests in step. Each chest keeps its contents in its own saved
+    /// The server's half: it keeps every one of a player's echo chests in step. Each chest keeps its contents in its own saved
     /// data (like any chest), and the server copies the newest copy to the others. Only the server can do that, because it's the
     /// only one that knows about chests far from any player.
     ///
     /// A chest records when its contents last changed. The newest one is the source; any other chest of that player that is
     /// behind (and not open) gets a copy. A newly built chest first catches up with the player's others. The server also writes
-    /// each chest how many vault chests that player has and how many of the others are open, which the players' games use to stop
+    /// each chest how many echo chests that player has and how many of the others are open, which the players' games use to stop
     /// two chests being open at once and to avoid spilling a shared vault's contents on the ground when one chest is taken down.
     /// </summary>
     internal static class VaultServer
@@ -24,14 +24,16 @@ namespace VaultHeim
         {
             if (!IsServer || ZDOMan.instance == null) return;
             if (Time.time < _nextSync) return;
-            _nextSync = Time.time + VaultHeimPlugin.SyncSeconds.Value;
+            _nextSync = Time.time + EchoChestsPlugin.SyncSeconds.Value;
 
-            var groups = new Dictionary<long, List<ZDO>>();
+            var groups = new Dictionary<string, List<ZDO>>();
             foreach (var zdo in ZDOMan.instance.m_objectsByID.Values)
             {
                 if (!VaultChest.IsVault(zdo)) continue;
-                long builder = zdo.GetLong(ZDOVars.s_creator);
-                if (!groups.TryGetValue(builder, out var list)) groups[builder] = list = new List<ZDO>();
+                // Linked with the builder's other echo chests, or with every echo chest set to the same clan.
+                string clan = zdo.GetString(ClanChest.KeyClan, "").Trim().ToLowerInvariant();
+                string group = clan.Length > 0 ? "c:" + clan : "b:" + zdo.GetLong(ZDOVars.s_creator);
+                if (!groups.TryGetValue(group, out var list)) groups[group] = list = new List<ZDO>();
                 list.Add(zdo);
             }
 
@@ -71,7 +73,7 @@ namespace VaultHeim
 
             if (source == null)
             {
-                // Nothing has been set up yet (the player's first vault chest): it simply starts the vault.
+                // Nothing has been set up yet (the player's first echo chest): it simply starts the vault.
                 foreach (var chest in chests) Join(chest, 0L);
                 return;
             }
