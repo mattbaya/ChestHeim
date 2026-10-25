@@ -1,7 +1,7 @@
 using HarmonyLib;
 using UnityEngine;
 
-namespace EchoChests
+namespace ChestHeim
 {
     internal static class VaultRules
     {
@@ -50,7 +50,7 @@ namespace EchoChests
                 return false;
             }
 
-            if (clan.Length == 0 && !EchoChestsPlugin.OthersCanDeposit.Value && !VaultRules.IsBuilder(__instance))
+            if (clan.Length == 0 && !ChestHeimPlugin.OthersCanDeposit.Value && !VaultRules.IsBuilder(__instance))
             {
                 VaultRules.Say("This vault is private");
                 __result = true;

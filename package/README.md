@@ -1,4 +1,14 @@
-# EchoChests
+# ChestHeim
+
+**Chest upgrades for Valheim: labels on every chest, and the Echo Chest, whose contents follow you.**
+
+- **Chest labels.** Press **Shift+E** on any chest and give it a name and an icon, like a sign on its front. Pick the icon from a searchable list of the game's items, change the colour of the text and of the icon, and use colour markup in the text.
+- **Echo Chests.** Every one you build, anywhere in the world, holds the same things. Link them with a clan and your whole clan shares one.
+- **Clan Keys, Restock** and more, below.
+
+## Chest labels
+
+Look at a chest and press **Shift+E**. In the window, type the label text. It's written like a sign, so `<color=red>Arrows</color>`, `<b>`, `<i>` and `<size=...>` all work, and you can pick the text colour from the swatches or type a hex colour. **Choose icon...** opens a searchable list of every item with an icon; pick one and colour it the same way. The label then appears on the front of the chest, an icon beside the text on a dark plate, and everyone who looks at the chest sees it (and the chest's hover name changes to the text). Anyone who can open a chest can label it; an Echo Chest only its builder or clan. If the label ends up on the wrong side of a chest, change `Labels / Side`.
 
 **A chest whose contents follow you. Every Echo Chest you build, anywhere in the world, holds the same things.**
 
@@ -71,16 +81,18 @@ Prefer a stash nobody else can touch? Set `Echo / OthersCanDeposit` to false and
 
 ## Multiplayer
 
-Install **EchoChests on the server as well as every player**. The Echo Chest is a new buildable, so a server without the mod removes it, and the server is also what keeps your chests in step. Versions must match. It works the same in single player, where your game is its own server.
+Install **ChestHeim on the server as well as every player**. The Echo Chest is a new buildable, so a server without the mod removes it, and the server is also what keeps your chests in step. Versions must match. It works the same in single player, where your game is its own server.
 
 ## Configuration
 
-`BepInEx/config/mbaya.EchoChests.cfg`, or Gale's config editor:
+`BepInEx/config/mbaya.ChestHeim.cfg`, or Gale's config editor:
 
 | Section | Key | Default | Notes |
 | --- | --- | --- | --- |
 | Echo | OthersCanDeposit | true | Others can open your Echo Chests and put things in; only you take things out. False = only you can open them |
 | Panel | PanelOffsetX / PanelOffsetY | 0 | Where you dragged the Restock panel (saved automatically) |
+| Labels | ShowLabels | true | Show the labels on chests |
+| Labels | Side | Front | Which side of a chest its label is on (Front, Right, Back, Left) |
 | Echo | SyncSeconds | 2 | How often the server copies a stash's contents to your other chests (a server setting) |
 
 ## Troubleshooting
@@ -89,7 +101,7 @@ Install **EchoChests on the server as well as every player**. The Echo Chest is 
 - **My second chest is empty.** The server needs a moment, usually a couple of seconds, to copy the contents. Close it and open it again. Check that the mod is on the **server** too: without it, chests aren't kept in step.
 - **"This stash is open in another chest."** One of your Echo Chests is open (possibly by you on another screen, or someone else's game). Close it first.
 - **"Only its builder can take things out."** The chest belongs to another player. You can put things in, but only they can take things out.
-- **Something else.** Open an issue at [github.com/mattbaya/EchoChests](https://github.com/mattbaya/EchoChests) and attach `BepInEx/LogOutput.log`.
+- **Something else.** Open an issue at [github.com/mattbaya/ChestHeim](https://github.com/mattbaya/ChestHeim) and attach `BepInEx/LogOutput.log`.
 
 ## Coming next
 

@@ -9,17 +9,17 @@ using Jotunn.Managers;
 using Jotunn.Utils;
 using UnityEngine;
 
-namespace EchoChests
+namespace ChestHeim
 {
     [BepInPlugin(Guid, Name, Version)]
     [BepInDependency(Jotunn.Main.ModGuid)]
     // The Echo Chest is a new buildable: anyone who sees one (and the server, which keeps the chests in step) needs the mod.
     [NetworkCompatibility(CompatibilityLevel.EveryoneMustHaveMod, VersionStrictness.Minor)]
-    public class EchoChestsPlugin : BaseUnityPlugin
+    public class ChestHeimPlugin : BaseUnityPlugin
     {
-        public const string Guid = "mbaya.EchoChests";
-        public const string Name = "EchoChests";
-        public const string Version = "0.4.0";
+        public const string Guid = "mbaya.ChestHeim";
+        public const string Name = "ChestHeim";
+        public const string Version = "0.5.0";
 
         // Based on the Black metal chest's model.
         private const string BasePiece = "piece_chest_blackmetal";
@@ -28,6 +28,8 @@ namespace EchoChests
 
         internal static ConfigEntry<bool> OthersCanDeposit;
         internal static ConfigEntry<float> SyncSeconds;
+        internal static ConfigEntry<bool> LabelsEnabled;
+        internal static ConfigEntry<LabelSide> LabelSideSetting;
         internal static ConfigEntry<float> PanelOffsetX;
         internal static ConfigEntry<float> PanelOffsetY;
 
@@ -43,13 +45,15 @@ namespace EchoChests
             SyncSeconds = Config.Bind("Echo", "SyncSeconds", 2f,
                 new ConfigDescription("How often the server copies an echo chest's contents to the player's other echo chests. (Server setting.)", new AcceptableValueRange<float>(0.5f, 30f)));
 
+            LabelsEnabled = Config.Bind("Labels", "ShowLabels", true, "Show the labels written on chests (Shift+E on a chest to write one).");
+            LabelSideSetting = Config.Bind("Labels", "Side", LabelSide.Front, "Which side of a chest its label is on. If it appears on the wrong side, try another.");
             PanelOffsetX = Config.Bind("Panel", "PanelOffsetX", 0f, new ConfigDescription("Where you dragged the Restock panel (saved automatically).", new AcceptableValueRange<float>(-3000f, 3000f)));
             PanelOffsetY = Config.Bind("Panel", "PanelOffsetY", 0f, new ConfigDescription("Where you dragged the Restock panel (saved automatically).", new AcceptableValueRange<float>(-3000f, 3000f)));
 
             PrefabManager.OnVanillaPrefabsAvailable += AddChest;
 
             _harmony = new Harmony(Guid);
-            _harmony.PatchAll(typeof(EchoChestsPlugin).Assembly);
+            _harmony.PatchAll(typeof(ChestHeimPlugin).Assembly);
             Log.LogInfo($"{Name} {Version} loaded");
         }
 
@@ -59,7 +63,7 @@ namespace EchoChests
             VaultPanel.Update();
         }
 
-        private void OnGUI() => ClanWindow.Draw();
+        private void OnGUI() => ChestWindow.Draw();
 
         private void OnDestroy() => _harmony?.UnpatchSelf();
 

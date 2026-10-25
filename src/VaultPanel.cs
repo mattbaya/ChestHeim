@@ -6,7 +6,7 @@ using Jotunn.Managers;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace EchoChests
+namespace ChestHeim
 {
     /// <summary>
     /// A panel beside your open Echo Chest: pick how many of some items you like to carry, click Restock, and the vault tops your
@@ -141,7 +141,7 @@ namespace EchoChests
             _chest = chest;
             _query = "";
             _status = "";
-            _offset = new Vector2(EchoChestsPlugin.PanelOffsetX.Value, EchoChestsPlugin.PanelOffsetY.Value);
+            _offset = new Vector2(ChestHeimPlugin.PanelOffsetX.Value, ChestHeimPlugin.PanelOffsetY.Value);
             Rebuild();
         }
 
@@ -211,8 +211,8 @@ namespace EchoChests
             var drag = _panel.AddComponent<PanelDrag>();
             drag.Target = _panel.GetComponent<RectTransform>();
             drag.Moved = delta => { _offset += delta; Attach(); };
-            drag.Dropped = () => { EchoChestsPlugin.PanelOffsetX.Value = _offset.x; EchoChestsPlugin.PanelOffsetY.Value = _offset.y; };
-            drag.Reset = () => { _offset = Vector2.zero; Attach(); EchoChestsPlugin.PanelOffsetX.Value = 0f; EchoChestsPlugin.PanelOffsetY.Value = 0f; };
+            drag.Dropped = () => { ChestHeimPlugin.PanelOffsetX.Value = _offset.x; ChestHeimPlugin.PanelOffsetY.Value = _offset.y; };
+            drag.Reset = () => { _offset = Vector2.zero; Attach(); ChestHeimPlugin.PanelOffsetX.Value = 0f; ChestHeimPlugin.PanelOffsetY.Value = 0f; };
             Attach();
 
             Button("X", Width / 2 - 34f, -24f, 44f, CloseChest);

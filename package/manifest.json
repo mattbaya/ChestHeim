@@ -1,9 +1,9 @@
 {
-  "name": "EchoChests",
+  "name": "ChestHeim",
   "author": "Svaha",
-  "version_number": "0.4.0",
-  "website_url": "https://github.com/mattbaya/EchoChests",
-  "description": "Echo Chests: a magical chest whose contents follow you. Build one anywhere and it holds the same things as all your others. Link them with a clan and your whole clan shares one. Only you (or your clan) can take things out.",
+  "version_number": "0.5.0",
+  "website_url": "https://github.com/mattbaya/ChestHeim",
+  "description": "ChestHeim: label any chest like a sign, with an icon and coloured text. Plus the Echo Chest: every one you build holds the same things, and clans can link theirs. Restock panel and Clan Keys included.",
   "dependencies": [
     "denikson-BepInExPack_Valheim-5.4.2351",
     "ValheimModding-Jotunn-2.30.2"

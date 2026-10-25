@@ -1,11 +1,11 @@
 using UnityEngine;
 
-namespace EchoChests
+namespace ChestHeim
 {
     /// <summary>The Echo Chest's identity (its prefab name and the fields it keeps in its saved data) and its look.</summary>
     internal static class VaultChest
     {
-        public const string PrefabName = "EchoChests_Chest";
+        public const string PrefabName = "ChestHeim_EchoChest";
         public static readonly int PrefabHash = PrefabName.GetStableHashCode();
 
         // Saved fields (on top of the chest's own "items").

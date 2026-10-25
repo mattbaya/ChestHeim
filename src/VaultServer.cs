@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace EchoChests
+namespace ChestHeim
 {
     /// <summary>
     /// The server's half: it keeps every one of a player's echo chests in step. Each chest keeps its contents in its own saved
@@ -24,7 +24,7 @@ namespace EchoChests
         {
             if (!IsServer || ZDOMan.instance == null) return;
             if (Time.time < _nextSync) return;
-            _nextSync = Time.time + EchoChestsPlugin.SyncSeconds.Value;
+            _nextSync = Time.time + ChestHeimPlugin.SyncSeconds.Value;
 
             var groups = new Dictionary<string, List<ZDO>>();
             foreach (var zdo in ZDOMan.instance.m_objectsByID.Values)
