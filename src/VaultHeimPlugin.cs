@@ -19,7 +19,7 @@ namespace VaultHeim
     {
         public const string Guid = "mbaya.VaultHeim";
         public const string Name = "VaultHeim";
-        public const string Version = "0.2.0";
+        public const string Version = "0.3.0";
 
         // Based on the Black metal chest's model.
         private const string BasePiece = "piece_chest_blackmetal";
@@ -59,6 +59,8 @@ namespace VaultHeim
             VaultPanel.Update();
         }
 
+        private void OnGUI() => ClanWindow.Draw();
+
         private void OnDestroy() => _harmony?.UnpatchSelf();
 
         private void AddChest()
@@ -87,6 +89,7 @@ namespace VaultHeim
                 return;
             }
 
+            ClanChest.AddKey();
             VaultChest.Customise(prefab);
             PieceManager.Instance.AddPiece(piece);
         }

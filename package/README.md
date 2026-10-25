@@ -26,6 +26,10 @@ Put your tools in the Vault Chest at your main base, walk to your mining outpost
 
 A Vault Chest looks like a black-metal chest with a purple tint, and gives off a faint purple glow, so you can tell it apart.
 
+## Clan chests
+
+Want a chest your whole clan can use? Craft a **Clan Key** at a workbench (2 Bronze, 2 Fine Wood). Carry it, look at a chest you built, and press **Shift+E**. Type your clan name, press **Share this chest with my clan**. From then on, anyone whose own clan name matches (they set it the same way, with a key of their own, using *Just save my clan name*) can open and use that chest. Everyone else, including players who'd normally be able to open any chest, is turned away. You can always open it, and **Stop sharing** puts it back to normal. Names aren't case-sensitive. The check is made in each player's game, like the vault's take-out rule, so use it among people you trust. Doesn't apply to Vault Chests, which already have their own rules.
+
 ## Restock
 
 Open your vault chest and a **Restock** panel appears beside it. Add the items you like to carry and how many (search by name, use **+** and **-**, hold Shift for bigger steps), or click **Remember what I carry** to copy what's in your inventory now. Click **Restock** and the vault tops your inventory up to those amounts, taking only what you're short of. Anything the vault doesn't have is reported. The list belongs to your character, so every vault chest shows the same one. The panel can be dragged (double-click it to reset) and has an **X** to close the chest. Only the chest's builder sees it.
