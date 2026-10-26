@@ -1,7 +1,7 @@
 {
   "name": "ChestHeim",
   "author": "Svaha",
-  "version_number": "0.5.2",
+  "version_number": "0.5.3",
   "website_url": "https://github.com/mattbaya/ChestHeim",
   "description": "ChestHeim: label any chest like a sign, with an icon and coloured text. Plus the Echo Chest: every one you build holds the same things, and clans can link theirs. Restock panel and Clan Keys included.",
   "dependencies": [

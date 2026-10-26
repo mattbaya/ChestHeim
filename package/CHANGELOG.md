@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.5.3
+- The pointer stays steady in the chest window (the game could take the mouse back every frame, making it flicker).
+
 ## 0.5.2
 - Each patch is now applied on its own, so one the game has changed can't stop the others (the log names the one that failed).
 

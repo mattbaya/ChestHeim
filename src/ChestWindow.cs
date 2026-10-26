@@ -325,4 +325,16 @@ namespace ChestHeim
             if (ChestWindow.IsOpen) __result = false;
         }
     }
+
+    /// <summary>Keeps the pointer steady while the chest window is up (the game otherwise takes the mouse back every frame).</summary>
+    [HarmonyPatch(typeof(GameCamera), "UpdateMouseCapture")]
+    internal static class KeepCursorPatch
+    {
+        private static void Postfix()
+        {
+            if (!ChestWindow.IsOpen) return;
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
+    }
 }
