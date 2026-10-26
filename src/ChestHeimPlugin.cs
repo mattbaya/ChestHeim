@@ -19,7 +19,7 @@ namespace ChestHeim
     {
         public const string Guid = "mbaya.ChestHeim";
         public const string Name = "ChestHeim";
-        public const string Version = "0.5.1";
+        public const string Version = "0.5.2";
 
         // Based on the Black metal chest's model.
         private const string BasePiece = "piece_chest_blackmetal";
@@ -53,7 +53,7 @@ namespace ChestHeim
             PrefabManager.OnVanillaPrefabsAvailable += AddChest;
 
             _harmony = new Harmony(Guid);
-            _harmony.PatchAll(typeof(ChestHeimPlugin).Assembly);
+            SafePatch.All(_harmony, typeof(ChestHeimPlugin).Assembly, Log);
             Log.LogInfo($"{Name} {Version} loaded");
         }
 

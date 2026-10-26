@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.5.2
+- Each patch is now applied on its own, so one the game has changed can't stop the others (the log names the one that failed).
+
 ## 0.5.1
 - Fix for the Restock panel's buttons not responding (the panel no longer has a canvas of its own, which could stop clicks reaching it).
 
