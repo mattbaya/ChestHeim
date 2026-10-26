@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.5.1
+- Fix for the Restock panel's buttons not responding (the panel no longer has a canvas of its own, which could stop clicks reaching it).
+
 ## 0.5.0
 - **Now called ChestHeim** (it was Echo Chests): Echo Chests are one feature of it.
 - **Chest labels.** Shift+E on any chest opens a window to write a label: text with colour markup, a text colour, an icon from a searchable list of the game's items and an icon colour. It shows on the front of the chest like a sign, and the chest's hover name uses the text. `Labels / ShowLabels`, `Labels / Side`.

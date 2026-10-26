@@ -19,7 +19,7 @@ namespace ChestHeim
     {
         public const string Guid = "mbaya.ChestHeim";
         public const string Name = "ChestHeim";
-        public const string Version = "0.5.0";
+        public const string Version = "0.5.1";
 
         // Based on the Black metal chest's model.
         private const string BasePiece = "piece_chest_blackmetal";

@@ -204,10 +204,6 @@ namespace ChestHeim
             var gui = GUIManager.Instance;
             _panel = gui.CreateWoodpanel(GUIManager.CustomGUIFront.transform, new Vector2(1f, 0.5f), new Vector2(1f, 0.5f),
                 new Vector2(-Width / 2 - 30f, 0f), Width, height, false);
-            var canvas = _panel.AddComponent<Canvas>();
-            canvas.overrideSorting = true;
-            canvas.sortingOrder = 200;
-            _panel.AddComponent<GraphicRaycaster>();
             var drag = _panel.AddComponent<PanelDrag>();
             drag.Target = _panel.GetComponent<RectTransform>();
             drag.Moved = delta => { _offset += delta; Attach(); };
